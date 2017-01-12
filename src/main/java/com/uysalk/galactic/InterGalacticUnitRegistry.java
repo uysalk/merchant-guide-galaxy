@@ -19,6 +19,7 @@ public class InterGalacticUnitRegistry {
     }
 
 
+
     public RomanNumber getRomanNumber(List<String> split) {
       String romanNumber =   split.stream().reduce("", (String x, String y) -> { return x + registry.get(y).romanRepresentation;} );
       return RomanNumber.builder().setRepr(romanNumber).createRomanNumber();
@@ -27,5 +28,10 @@ public class InterGalacticUnitRegistry {
     public RomanNumber getRomanNumber(String line) {
         List<String> collect = Arrays.stream(line.split(" ")).filter((x)-> ! x.isEmpty()).collect(Collectors.toList());
         return getRomanNumber (collect);
+    }
+
+    public InterGalacticUnit getGalacticUnit(String galacticRepresentation) {
+       return registry.get(galacticRepresentation);
+
     }
 }
