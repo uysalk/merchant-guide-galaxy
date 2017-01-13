@@ -1,3 +1,5 @@
+import com.uysalk.GalacticResponse;
+import com.uysalk.MerchantProgram;
 import com.uysalk.galactic.InterGalacticUnitRegistry;
 import com.uysalk.metal.MetalRegistry;
 import org.junit.Test;
@@ -19,10 +21,10 @@ public class MerchantProgramTest {
         final MetalRegistry metalRegistry = new MetalRegistry();
 
         MerchantProgram merchant = new MerchantProgram(interGalacticUnitRegistry, metalRegistry);
-        merchant.interpret ("glob  is  I ");
-        merchant.interpret ("prok  is  V ");
-        merchant.interpret ("pish  is  X ");
-        merchant.interpret ("tegj  is  L ");
+        merchant.interpret ("glob is I");
+        merchant.interpret ("prok is V");
+        merchant.interpret ("pish is X");
+        merchant.interpret ("tegj is L");
 
         merchant.interpret ("glob prok Silver is 36 Credits");
 
@@ -39,7 +41,8 @@ public class MerchantProgramTest {
 
         assertEquals (9d, metalRegistry.get("Silver").value.get());
 
-
+        GalacticResponse invalidResponse = merchant.interpret("how much wood could a woodchuck chuck if a woodchuck could chuck wood ?");
+        assertEquals("I have no idea what you are talking about", invalidResponse.getResponse());
 
     }
 

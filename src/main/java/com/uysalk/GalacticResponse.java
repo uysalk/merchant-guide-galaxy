@@ -1,3 +1,5 @@
+package com.uysalk;
+
 /**
  * Created by uysal.kara on 12.01.2017.
  */

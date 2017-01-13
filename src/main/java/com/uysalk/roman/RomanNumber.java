@@ -3,6 +3,8 @@ package com.uysalk.roman;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * Created by uysal.kara on 11.01.2017.
@@ -80,14 +82,24 @@ public class RomanNumber {
     }
     public static class RomanNumberBuilder {
         private String repr;
+        Pattern pat = Pattern.compile("^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$");
 
         public RomanNumberBuilder setRepr(String repr) {
             this.repr = repr;
             return this;
         }
 
-        public RomanNumber createRomanNumber() {
-            return new RomanNumber(repr);
+        public Optional<RomanNumber> createRomanNumber() {
+            if (isValid (repr)){
+                return Optional.of(new RomanNumber(repr));
+            }else{
+                return Optional.empty();
+            }
+        }
+
+        private boolean isValid(String repr) {
+            return  pat.matcher(repr).matches();
+
         }
     }
 

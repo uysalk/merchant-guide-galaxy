@@ -1,6 +1,8 @@
 import com.uysalk.roman.RomanNumber;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static junit.framework.Assert.assertEquals;
 
 /**
@@ -11,12 +13,20 @@ public class RomanNumberTest {
 
     @Test
     public void testValidRomanNumber (){
-        RomanNumber.builder().setRepr("I").createRomanNumber();
 
-        assertEquals(RomanNumber.builder().setRepr("I").createRomanNumber().toNumber (), 1);
-        assertEquals(RomanNumber.builder().setRepr("II").createRomanNumber().toNumber (), 2);
-        assertEquals(RomanNumber.builder().setRepr("III").createRomanNumber().toNumber (), 3);
-        assertEquals(RomanNumber.builder().setRepr("MMIX").createRomanNumber().toNumber (), 2009);
+        assertEquals(RomanNumber.builder().setRepr("I").createRomanNumber().get().toNumber (), 1);
+        assertEquals(RomanNumber.builder().setRepr("II").createRomanNumber().get().toNumber (), 2);
+        assertEquals(RomanNumber.builder().setRepr("III").createRomanNumber().get().toNumber (), 3);
+        assertEquals(RomanNumber.builder().setRepr("MMIX").createRomanNumber().get().toNumber (), 2009);
+
+    }
+
+    @Test
+    public void testInValidRomanNumber (){
+
+        assertEquals(RomanNumber.builder().setRepr("IIII").createRomanNumber(), Optional.empty());
+        assertEquals(RomanNumber.builder().setRepr("IIIIV").createRomanNumber(), Optional.empty());
+
 
     }
 

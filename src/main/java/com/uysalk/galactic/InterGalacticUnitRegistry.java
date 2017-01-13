@@ -2,10 +2,7 @@ package com.uysalk.galactic;
 
 import com.uysalk.roman.RomanNumber;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -20,12 +17,12 @@ public class InterGalacticUnitRegistry {
 
 
 
-    public RomanNumber getRomanNumber(List<String> split) {
+    public Optional<RomanNumber> getRomanNumber(List<String> split) {
       String romanNumber =   split.stream().reduce("", (String x, String y) -> { return x + registry.get(y).romanRepresentation;} );
       return RomanNumber.builder().setRepr(romanNumber).createRomanNumber();
     }
 
-    public RomanNumber getRomanNumber(String line) {
+    public Optional<RomanNumber> getRomanNumber(String line) {
         List<String> collect = Arrays.stream(line.split(" ")).filter((x)-> ! x.isEmpty()).collect(Collectors.toList());
         return getRomanNumber (collect);
     }
