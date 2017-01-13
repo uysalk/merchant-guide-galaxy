@@ -3,11 +3,10 @@ package com.uysalk;
 import com.uysalk.galactic.InterGalacticUnitRegistry;
 import com.uysalk.metal.MetalRegistry;
 
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
@@ -15,7 +14,7 @@ import java.util.stream.Stream;
  */
 public class Main {
 
-        public static void main(String... args) throws URISyntaxException {
+        public static void main(String... args) throws Exception {
 
             URI fileURI =  MerchantProgram.class.getResource( "/input.txt" ).toURI();
             final InterGalacticUnitRegistry interGalacticUnitRegistry = new InterGalacticUnitRegistry();
@@ -24,10 +23,11 @@ public class Main {
             MerchantProgram merchantProgram = new MerchantProgram(interGalacticUnitRegistry, metalRegistry);
             try (Stream<String> stream = Files.lines(Paths.get(fileURI))) {
 
-                stream.map((line)->merchantProgram.interpret(line)).map((x)->x.getResponse()).forEach(System.out::println);
+                stream.map((line)->merchantProgram.interpret(line)).
+                        map((x)->x.getResponse().toString()).
+                        filter (((Predicate<String>) String::isEmpty).negate()).
+                        forEach(System.out::println);
 
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
         }
